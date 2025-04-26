@@ -19,7 +19,7 @@ Note that we only apply for available and functional badge.
 ## Dependency Installation
 
 ```bash
-git clone 2
+git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
 
 ./install_dependency.sh
 ```
@@ -82,11 +82,13 @@ unxz image_record_loading.ext4.xz
 #### Simulator Preparation
 
 ```bash
+ git submodule init
+
 # clone benchmark repo for instruction analysis
-git clone https://github.com/xlab-uiuc/rethinkVM_bench.git
+git submodule update rethinkVM_bench
 
 # clone dynamoRIO for performance analysis
-git clone https://github.com/xlab-uiuc/dynamorio.git
+git submodule update dynamorio
 ```
 
 #### Time to run
