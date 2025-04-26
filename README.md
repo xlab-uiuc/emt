@@ -66,7 +66,7 @@ make -j `nproc` LOCALVERSION=-gen-x86
 
 To run linux with QEMU, you need a filesystem image.
 We prepared a image that contains precompiled benchmark suites (from rethinkVM_bench).
-We have already uploaded image to `/proj/AE25-PG0/EMT-images/image_record_loading.ext4.xz`.
+We have already uploaded image to `/proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz`.
 
 Run the following commands to copy and decoompress.
 
@@ -75,7 +75,7 @@ Run the following commands to copy and decoompress.
 cd ..;
 
 # copy and decompress the image.
-cp /proj/AE25-PG0/EMT-images/image_record_loading.ext4.xz .
+cp /proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz .
 unxz image_record_loading.ext4.xz
 ```
 
