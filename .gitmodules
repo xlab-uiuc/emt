@@ -1,0 +1,12 @@
+[submodule "linux_emt"]
+	path = linux_emt
+	url = https://github.com/xlab-uiuc/linux_emt
+[submodule "qemu_emt"]
+	path = qemu_emt
+	url = https://github.com/xlab-uiuc/qemu_emt.git
+[submodule "rethinkVM_bench"]
+	path = rethinkVM_bench
+	url = https://github.com/xlab-uiuc/rethinkVM_bench.git
+[submodule "dynamorio"]
+	path = dynamorio
+	url = https://github.com/xlab-uiuc/dynamorio.git

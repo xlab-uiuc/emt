@@ -75,7 +75,7 @@ Run the following commands to copy and decoompress.
 cd ..;
 
 # copy and decompress the image.
-cp/proj/AE25-PG0/EMT-images/image_record_loading.ext4.xz .
+cp /proj/AE25-PG0/EMT-images/image_record_loading.ext4.xz .
 unxz image_record_loading.ext4.xz
 ```
 
