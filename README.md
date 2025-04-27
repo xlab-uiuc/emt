@@ -10,10 +10,10 @@ We develop EMT, a pragmatic framework atop Linux to em- power different hardware
 
 Note that we only apply for available and functional badge.
 ### Repository overview
-- *linux_emt*, Linux kernel implementation including support for x86-radix, ECPT, and FPT
-- *qemu_emt*, QEMU emulation tool to test and evaluate architectures
+- *emt-linux*, Linux kernel implementation including support for x86-radix, ECPT, and FPT
+- *qemu-emt*, QEMU emulation tool to test and evaluate architectures
 - *dynamorio* Memory simulator for performance
-- *rethinkVM_bench* benchmark repo for all benchmarks
+- *VM-Bench* benchmark repo for all benchmarks
 
 
 ## Dependency Installation
@@ -35,8 +35,8 @@ newgrp docker
 #### QEMU Setup
 Clone repo 
 ```bash
-git clone https://github.com/xlab-uiuc/qemu_emt.git qemu_x86;
-cd qemu_x86;
+git clone https://github.com/xlab-uiuc/qemu-emt.git qemu-radix;
+cd qemu-radix;
 git checkout execlog_addr_dump;
 ```
 
@@ -55,8 +55,8 @@ Clone linux repo and qemu repo under the **same** folder.
 # get out of QEMU repo
 cd ..;
 
-git clone https://github.com/xlab-uiuc/linux_emt.git linux_gen_x86;
-cd linux_gen_x86;
+git clone https://github.com/xlab-uiuc/emt-linux.git emt-linux-radix;
+cd emt-linux-radix;
 git checkout main;
 cp configs/general_interface_radix_config .config;
 ```
@@ -70,7 +70,7 @@ make -j `nproc` LOCALVERSION=-gen-x86
 #### Filesystem
 
 To run linux with QEMU, you need a filesystem image.
-We prepared a image that contains precompiled benchmark suites (from rethinkVM_bench).
+We prepared a image that contains precompiled benchmark suites (from VM-Bench).
 We have already uploaded image to `/proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz`.
 
 Run the following commands to copy and decoompress.
@@ -87,10 +87,10 @@ unxz image_record_loading.ext4.xz
 #### Simulator Preparation
 
 ```bash
- git submodule init
+git submodule init
 
 # clone benchmark repo for instruction analysis
-git submodule update rethinkVM_bench
+git submodule update --recursive VM-Bench
 
 # clone dynamoRIO for performance analysis
 git submodule update dynamorio
@@ -108,7 +108,7 @@ Please select a disk drive with at least 200GB free space.
 Note that the script assuems image is located `../image_record_loading.ext4`
 Please change the `IMAGE_PATH_PREFIX` in `./run_bench.sh` accordingly, if you have renamed it.
 ```bash
-cd linux_gen_x86
+cd emt-linux-radix
 
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
@@ -128,10 +128,10 @@ File ended with `bin.dyna_asplos_smalltlb_config_realpwc.log` is simulator resul
 #### QEMU Setup
 Clone QEMU and configure ECPT
 ```bash
-# get out of linux_gen_x86 repo
+# get out of emt-linux-radix repo
 cd ..; 
-git clone https://github.com/xlab-uiuc/qemu_emt.git qemu_ECPT;
-cd qemu_ECPT;
+git clone https://github.com/xlab-uiuc/qemu-emt.git qemu-ecpt;
+cd qemu-ecpt;
 git checkout execlog_addr_dump;
 
 ./configure_ECPT_execlog.sh
@@ -145,13 +145,13 @@ so you are actually configure to compile x86_64 but with ECPT as address transla
 
 
 #### Linux Setup
-Clone linux_gen_ECPT repo and qemu_ECPT repo under the **same** folder.
+Clone emt-linux-ecpt repo and qemu-ecpt repo under the **same** folder.
 ```bash
 # get out of QEMU repo  
 cd ..;
 
-git clone https://github.com/xlab-uiuc/linux_emt.git linux_gen_ECPT;
-cd linux_gen_ECPT;
+git clone https://github.com/xlab-uiuc/emt-linux.git emt-linux-ecpt;
+cd emt-linux-ecpt;
 git checkout main;
 cp configs/general_interface_ECPT_config .config;
 
@@ -181,10 +181,10 @@ You can find similar files in `benchmark_output/ecpt/running`.
 #### QEMU Setup
 Clone QEMU and configure ECPT
 ```bash
-# get out of linux_gen_x86 repo
+# get out of emt-linux-radix repo
 cd ..; 
-git clone https://github.com/xlab-uiuc/qemu_emt.git qemu_FPT;
-cd qemu_FPT;
+git clone https://github.com/xlab-uiuc/qemu-emt.git qemu-fpt;
+cd qemu-fpt;
 git checkout execlog_addr_dump;
 
 ./configure_fpt_execlog.sh
@@ -192,13 +192,13 @@ make -j `nproc`
 ```
 
 #### Linux Setup
-Clone linux_gen_FPT repo and qemu_FPT repo under the **same** folder.
+Clone emt-linux-fpt repo and qemu-fpt repo under the **same** folder.
 ```bash
 # get out of QEMU repo  
 cd ..;
 
-git clone https://github.com/xlab-uiuc/linux_emt.git linux_gen_FPT;
-cd linux_gen_FPT;
+git clone https://github.com/xlab-uiuc/emt-linux.git emt-linux-fpt;
+cd emt-linux-fpt;
 git checkout FPT;
 cp configs/general_interface_FPT_config .config;
 
