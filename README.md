@@ -22,6 +22,11 @@ Note that we only apply for available and functional badge.
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
 
 ./install_dependency.sh
+
+# add your self to docker group
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
 ```
 
 
@@ -89,6 +94,8 @@ git submodule update rethinkVM_bench
 
 # clone dynamoRIO for performance analysis
 git submodule update dynamorio
+cd dynamorio
+docker build -t dynamorio:latest .
 ```
 
 #### Time to run
