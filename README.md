@@ -20,7 +20,7 @@ Note that we only apply for available and functional badge.
 
 ```bash
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
-
+cd EMT-OSDI-AE
 ./install_dependency.sh
 
 # add your self to docker group
@@ -96,6 +96,7 @@ git submodule update --recursive VM-Bench
 git submodule update dynamorio
 cd dynamorio
 docker build -t dynamorio:latest .
+cd ..
 ```
 
 #### Time to run
