@@ -34,5 +34,7 @@ sudo apt install -y qemu-kvm virt-manager libvirt-daemon-system virtinst libvirt
 sudo apt install -y meson
 sudo apt install -y libglib2.0-dev
 sudo apt install -y pkg-config
-sudo apt install -y libpixman-1-0 rigp
+sudo apt install -y libpixman-1-dev ripgrep
 sudo apt install -y xz-utils
+
+sudo apt install -y docker.io
