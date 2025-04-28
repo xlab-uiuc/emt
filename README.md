@@ -90,7 +90,7 @@ unxz image_record_loading.ext4.xz
 git submodule init
 
 # clone benchmark repo for instruction analysis
-git submodule update --recursive VM-Bench
+git submodule update --init --recursive VM-Bench
 
 # clone dynamoRIO for performance analysis
 git submodule update dynamorio
