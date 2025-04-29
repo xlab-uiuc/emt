@@ -38,3 +38,8 @@ sudo apt install -y libpixman-1-dev ripgrep
 sudo apt install -y xz-utils
 
 sudo apt install -y docker.io
+
+# add your self to docker group
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker

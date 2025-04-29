@@ -25,19 +25,20 @@ We have reserved machine on cloudlab. You can join the project `AE25` and find e
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
 cd EMT-OSDI-AE
 ./install_dependency.sh
-
-# add your self to docker group
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
 ```
 
 
 ## Radix Setup
 
 #### QEMU Setup
-Clone repo 
+<!-- Clone repo  -->
+
 ```bash
+# Clone QEMU repo and build QEMU with x86-radix softmmu
+./setup_qemu_radix.sh
+```
+
+<!-- ```bash
 git clone https://github.com/xlab-uiuc/qemu-emt.git qemu-radix;
 cd qemu-radix;
 git checkout execlog_addr_dump;
@@ -48,12 +49,19 @@ Configure for radix and run
 # Configure QEMU for x86 radix emulation with plugin support
 ./configure_radix_execlog.sh
 make -j `nproc`
-```
+``` -->
 
-The compiled binary is at `build/qemu-system-x86_64`. 
+The compiled binary is at `qemu-radix/build/qemu-system-x86_64`. 
 
 #### Linux Setup
-Clone linux repo and qemu repo under the **same** folder.
+
+```bash
+# Clone Linux repo and build EMT-Linux with x86-radix MMU driver
+./setup_linux_radix.sh
+```
+You can find linux folder at `emt-linux-radix`.
+
+<!-- Clone linux repo and qemu repo under the **same** folder.
 ```bash
 # get out of QEMU repo
 cd ..;
@@ -68,7 +76,7 @@ Next, we compile the kernel.
 ```
 make olddefconfig
 make -j `nproc` LOCALVERSION=-gen-x86
-```
+``` -->
 
 #### Filesystem
 
@@ -89,7 +97,14 @@ unxz image_record_loading.ext4.xz
 
 #### Simulator Preparation
 
+The script will setup `dynamorio` and `VM-Bench` repo.
+They contain simulator and instruction trace analyzer.
 ```bash
+./setup_simulator.sh
+```
+
+
+<!-- ```bash
 git submodule init
 
 # clone benchmark repo for instruction analysis
@@ -100,7 +115,7 @@ git submodule update dynamorio
 cd dynamorio
 docker build -t dynamorio:latest .
 cd ..
-```
+``` -->
 
 #### Time to run
 
@@ -133,7 +148,7 @@ File ended with `bin.dyna_asplos_smalltlb_config_realpwc.log` is simulator resul
 ## ECPT setup
 
 #### QEMU Setup
-Clone QEMU and configure ECPT
+<!-- Clone QEMU and configure ECPT
 ```bash
 # get out of emt-linux-radix repo
 cd ..; 
@@ -143,17 +158,26 @@ git checkout execlog_addr_dump;
 
 ./configure_ECPT_execlog.sh
 make -j `nproc`
-```
+``` -->
 
-The compiled binary is still at `build/qemu-system-x86_64`. 
+```bash
+# Clone QEMU repo and build with ECPT softmmu support
+./setup_qemu_ecpt.sh
+```
+The compiled binary is still at `qemu-ecpt/build/qemu-system-x86_64`. 
 The name `qemu-system-x86_64` might be confusing here, 
 but we have changed the implementation of QEMU's x86_64 to support ECPT,
 so you are actually configure to compile x86_64 but with ECPT as address translation method. 
 
 
 #### Linux Setup
-Clone emt-linux-ecpt repo and qemu-ecpt repo under the **same** folder.
+<!-- Clone emt-linux-ecpt repo and qemu-ecpt repo under the **same** folder. -->
+The script will setup linux directory at `emt-linux-ecpt`.
 ```bash
+# Clone Linux repo and build EMT-Linux with ECPT MMU driver
+./setup_linux_ecpt.sh
+```
+<!-- ```bash
 # get out of QEMU repo  
 cd ..;
 
@@ -164,9 +188,9 @@ cp configs/general_interface_ECPT_config .config;
 
 make olddefconfig
 make -j `nproc` LOCALVERSION=-gen-ECPT
-```
+``` -->
 
-`general_interface_ECPT_config` configures linux to run on ECPT.
+<!-- `general_interface_ECPT_config` configures linux to run on ECPT. -->
 
 #### Time to run
 Again, we need a filesystem to run.
@@ -186,8 +210,8 @@ You can find similar files in `/data/EMT/ecpt/running`.
 ## FPT setup
 
 #### QEMU Setup
-Clone QEMU and configure ECPT
-```bash
+<!-- Clone QEMU and configure ECPT -->
+<!-- ```bash
 # get out of emt-linux-radix repo
 cd ..; 
 git clone https://github.com/xlab-uiuc/qemu-emt.git qemu-fpt;
@@ -196,10 +220,23 @@ git checkout execlog_addr_dump;
 
 ./configure_fpt_execlog.sh
 make -j `nproc`
+``` -->
+
+```bash
+# Clone QEMU repo and build with FPT softmmu support
+./setup_qemu_fpt.sh
 ```
+Output folder `qemu-fpt`.
 
 #### Linux Setup
-Clone emt-linux-fpt repo and qemu-fpt repo under the **same** folder.
+
+```bash
+# Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
+./setup_linux_fpt_L4L3L2L1.sh
+```
+Output folder `emt-linux-fpt-L4L3L2L1`.
+
+<!-- Clone emt-linux-fpt repo and qemu-fpt repo under the **same** folder.
 ```bash
 # get out of QEMU repo  
 cd ..;
@@ -211,11 +248,12 @@ cp configs/general_interface_FPT_config .config;
 
 make olddefconfig
 make -j `nproc` LOCALVERSION=-gen-FPT
-```
+``` -->
 
 #### Time to run
 
 ```bash
+cd emt-linux-fpt-L4L3L2L1
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
 ./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out /data/EMT --dry
@@ -225,15 +263,24 @@ make -j `nproc` LOCALVERSION=-gen-FPT
 ```
 
 By default FPT runs with L4L3 and L2L1 flatenned. If you wish to try L3L2 folding.
+
 ```bash
+# Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
+./setup_linux_fpt_L3L2.sh
+```
+Output folder `emt-linux-fpt-L3L2`.
+
+
+<!-- ```bash
 scripts/config --enable CONFIG_X86_64_FPT_L3L2
 scripts/config --disable CONFIG_X86_64_FPT_L4L3L2L1
 
 make -j `nproc` LOCALVERSION=-gen-FPT
-```
+``` -->
 
 Then run benchmark with 
 ```bash
 # real run
+cd emt-linux-fpt-L3L2;
 ./run_bench.sh --arch fpt --flavor L3L2 --thp never --out /data/EMT
 ```
