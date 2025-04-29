@@ -18,6 +18,9 @@ Note that we only apply for available and functional badge.
 
 ## Dependency Installation
 
+The following instructions are tested on Ubuntu 22.04 environment.
+We have reserved machine on cloudlab. You can join the project `AE25` and find experiment `EMT-AE`.
+
 ```bash
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
 cd EMT-OSDI-AE
@@ -103,23 +106,26 @@ cd ..
 
 Run a graphbig benchmark with EMT-Linux and generate analysis file.
 The output include instruction and memory trace which can be up to 150GB.
-We will compress the trace to save space in the scripts.
-Please select a disk drive with at least 200GB free space. 
+The script will compress the trace to save space in the end.
+Please select a disk drive with at least 200GB free space.
+
+*Note* If you are on a cloudlab machine, the home directory will likely not have enough space to finish the workload.
+We provide a [guide](guides/disk.md) to mount an extra disk under directory `/data/EMT`
 
 Note that the script assuems image is located `../image_record_loading.ext4`
-Please change the `IMAGE_PATH_PREFIX` in `./run_bench.sh` accordingly, if you have renamed it.
+Please change the `IMAGE_PATH_PREFIX` in `./run_bench.sh` accordingly, if you have renamed the image.
 ```bash
 cd emt-linux-radix
 
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
-./run_bench.sh --arch radix --thp never --out benchmark_output --dry
+./run_bench.sh --arch radix --thp never --out /data/EMT --dry
 
 # real run
-./run_bench.sh --arch radix --thp never --out benchmark_output
+./run_bench.sh --arch radix --thp never --out /data/EMT
 ```
 
-The script will run and generate analysis files in `benchmark_output/radix/running`.
+The script will run and generate analysis files in `/data/EMT/radix/running`.
 You can find a file with suffix `kern_inst.folded.high_level.csv` that contains kernel instruction distribution.
 File ended with `bin.dyna_asplos_smalltlb_config_realpwc.log` is simulator result from DynamoRIO; the final simulation result can be found at the file ended with `dyna_asplos_smalltlb_config_realpwc.log.ipc.csv`
 
@@ -169,13 +175,13 @@ We can reuse the image from last section.
 ```bash
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
-./run_bench.sh --arch ecpt --thp never --out benchmark_output --dry
+./run_bench.sh --arch ecpt --thp never --out /data/EMT --dry
 
 # real run
-./run_bench.sh --arch ecpt --thp never --out benchmark_output
+./run_bench.sh --arch ecpt --thp never --out /data/EMT
 ```
 
-You can find similar files in `benchmark_output/ecpt/running`.
+You can find similar files in `/data/EMT/ecpt/running`.
 
 ## FPT setup
 
@@ -212,10 +218,10 @@ make -j `nproc` LOCALVERSION=-gen-FPT
 ```bash
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
-./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out benchmark_output --dry
+./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out /data/EMT --dry
 
 # real run
-./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out benchmark_output
+./run_bench.sh --arch fpt --flavor L4L3_L2L1 --thp never --out /data/EMT
 ```
 
 By default FPT runs with L4L3 and L2L1 flatenned. If you wish to try L3L2 folding.
@@ -229,5 +235,5 @@ make -j `nproc` LOCALVERSION=-gen-FPT
 Then run benchmark with 
 ```bash
 # real run
-./run_bench.sh --arch fpt --flavor L3L2 --thp never --out benchmark_output
+./run_bench.sh --arch fpt --flavor L3L2 --thp never --out /data/EMT
 ```
