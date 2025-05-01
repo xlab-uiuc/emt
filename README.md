@@ -24,7 +24,7 @@ We have reserved machine on cloudlab. You can join the project `AE25` and find e
 ```bash
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
 cd EMT-OSDI-AE
-./install_dependency.sh
+./setup/install_dependency.sh
 ```
 
 
@@ -35,7 +35,7 @@ cd EMT-OSDI-AE
 
 ```bash
 # Clone QEMU repo and build QEMU with x86-radix softmmu
-./setup_qemu_radix.sh
+./setup/setup_qemu_radix.sh
 ```
 
 <!-- ```bash
@@ -57,7 +57,7 @@ The compiled binary is at `qemu-radix/build/qemu-system-x86_64`.
 
 ```bash
 # Clone Linux repo and build EMT-Linux with x86-radix MMU driver
-./setup_linux_radix.sh
+./setup/setup_linux_radix.sh
 ```
 You can find linux folder at `emt-linux-radix`.
 
@@ -84,12 +84,9 @@ To run linux with QEMU, you need a filesystem image.
 We prepared a image that contains precompiled benchmark suites (from VM-Bench).
 We have already uploaded image to `/proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz`.
 
-Run the following commands to copy and decoompress.
+Run the following commands to copy and decoompress. (Please make sure we are still in the `EMT-OSDI-AE` root folder.)
 
 ```bash
-# get out of Linux repo
-cd ..;
-
 # copy and decompress the image.
 cp /proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz .
 unxz image_record_loading.ext4.xz
@@ -100,7 +97,7 @@ unxz image_record_loading.ext4.xz
 The script will setup `dynamorio` and `VM-Bench` repo.
 They contain simulator and instruction trace analyzer.
 ```bash
-./setup_simulator.sh
+./setup/setup_simulator.sh
 ```
 
 
@@ -147,6 +144,8 @@ File ended with `bin.dyna_asplos_smalltlb_config_realpwc.log` is simulator resul
 
 ## ECPT setup
 
+Note that if you just ended running command above, please return back to the root folder (`EMT-OSDI-AE`).
+
 #### QEMU Setup
 <!-- Clone QEMU and configure ECPT
 ```bash
@@ -162,7 +161,7 @@ make -j `nproc`
 
 ```bash
 # Clone QEMU repo and build with ECPT softmmu support
-./setup_qemu_ecpt.sh
+./setup/setup_qemu_ecpt.sh
 ```
 The compiled binary is still at `qemu-ecpt/build/qemu-system-x86_64`. 
 The name `qemu-system-x86_64` might be confusing here, 
@@ -175,7 +174,7 @@ so you are actually configure to compile x86_64 but with ECPT as address transla
 The script will setup linux directory at `emt-linux-ecpt`.
 ```bash
 # Clone Linux repo and build EMT-Linux with ECPT MMU driver
-./setup_linux_ecpt.sh
+./setup/setup_linux_ecpt.sh
 ```
 <!-- ```bash
 # get out of QEMU repo  
@@ -197,6 +196,8 @@ Again, we need a filesystem to run.
 We can reuse the image from last section.
 
 ```bash
+cd emt-linux-ecpt
+
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
 ./run_bench.sh --arch ecpt --thp never --out /data/EMT --dry
@@ -224,7 +225,7 @@ make -j `nproc`
 
 ```bash
 # Clone QEMU repo and build with FPT softmmu support
-./setup_qemu_fpt.sh
+./setup/setup_qemu_fpt.sh
 ```
 Output folder `qemu-fpt`.
 
@@ -232,7 +233,7 @@ Output folder `qemu-fpt`.
 
 ```bash
 # Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
-./setup_linux_fpt_L4L3L2L1.sh
+./setup/setup_linux_fpt_L4L3L2L1.sh
 ```
 Output folder `emt-linux-fpt-L4L3L2L1`.
 
@@ -266,7 +267,7 @@ By default FPT runs with L4L3 and L2L1 flatenned. If you wish to try L3L2 foldin
 
 ```bash
 # Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
-./setup_linux_fpt_L3L2.sh
+./setup/setup_linux_fpt_L3L2.sh
 ```
 Output folder `emt-linux-fpt-L3L2`.
 
