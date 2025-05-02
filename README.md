@@ -27,6 +27,14 @@ cd EMT-OSDI-AE
 ./setup/install_dependency.sh
 ```
 
+PS: `./setup/install_dependency.sh` helps us enter the environment to run machines. If you just restarted the machine, initiated a new terminal, or exited the environment by `exit` before, please rerun `./setup/install_dependency.sh`, or run the following commands (also part of the script) before you continue/restart.
+```
+if ! getent group docker > /dev/null; then
+    sudo groupadd docker
+fi
+sudo usermod -aG docker $USER
+newgrp docker
+```
 
 ## Radix Setup
 
