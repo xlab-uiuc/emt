@@ -79,6 +79,7 @@ for arch in "${arch[@]}"; do
                 if [[ $dry_run != true ]]; then
                     ./run_linux_free_cmd --arch $arch --thp $thp --cmd "$command" --out ${output_dir}/${file_prefix}_walk_log.bin --image ${image_path} --run-dynamorio
                 fi
+                results+=($(realpath ${output_dir}/${file_prefix}_walk_log.bin.dyna_asplos_smalltlb_config_realpwc.log.ipc.csv))
             done
         done
         if [[ $dry_run != true ]]; then
@@ -87,4 +88,9 @@ for arch in "${arch[@]}"; do
         fi
     done
     cd ..
+done
+
+echo "Done! List of analysis results:"
+for result in "${results[@]}"; do
+    echo -e "\033[1;35m\t${result}"
 done

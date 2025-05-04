@@ -23,26 +23,26 @@ image_path=(
 )
 
 benchmarks=(
-    "graphbig_bfs_small"
+    # "graphbig_bfs_small"
     # "gups_8G"
 
-    # "graphbig_bfs" 
-    # "graphbig_dfs" 
-    # "graphbig_dc" 
-    # "graphbig_sssp"
-    # "gups"
+    "gups"
+    "graphbig_bfs" 
+    "graphbig_dfs" 
+    "graphbig_dc" 
+    "graphbig_sssp"
     # "redis"
 )
 
 commands=(
-    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_bfs_small.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench; ./run_scripts/simulation/gups_8G.sh <stage>; /shutdown;"
+    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_bfs_small.sh <stage>; /shutdown;"
+    # "cd rethinkVM_bench; ./run_scripts/simulation/gups_8G.sh <stage>; /shutdown;"
 
-    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_bfs.sh <stage>; /shutdown;"
-    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dfs.sh <stage>; /shutdown;"
-    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dc.sh <stage>; /shutdown;"
-    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_sssp.sh <stage>; /shutdown;"
-    # "cd rethinkVM_bench; ./run_scripts/simulation/gups.sh <stage>; /shutdown;"
+    "cd rethinkVM_bench; ./run_scripts/simulation/gups.sh <stage>; /shutdown;"
+    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_bfs.sh <stage>; /shutdown;"
+    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dfs.sh <stage>; /shutdown;"
+    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dc.sh <stage>; /shutdown;"
+    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_sssp.sh <stage>; /shutdown;"
     # TODO: run redis
 )
 
@@ -82,15 +82,12 @@ for arch in "${arch[@]}"; do
                 sudo chmod 777 $output_dir
                 
                 echo "./run_linux_free_cmd --arch $arch --thp $thp --cmd \"$command\" --out ${output_dir}/${file_prefix}_walk_log.bin --image /data/image/image_record_loading_rep${i}.ext4 --run-dynamorio &"
+                results+=($(realpath ${output_dir}/${file_prefix}_walk_log.bin.dyna_asplos_smalltlb_config_realpwc.log.ipc.csv))
                 if [[ $dry_run != true ]]; then
                     ./run_linux_free_cmd --arch $arch --thp $thp --cmd "$command" --out ${output_dir}/${file_prefix}_walk_log.bin --image /data/image/image_record_loading_rep${i}.ext4 --run-dynamorio &
                 fi
                 i=$((i + 1))
             done
-            if [[ "$benchmark" == "gups_8G" ]]; then
-                wait
-                sleep 5
-            fi
             if [[ $dry_run != true && "$benchmark" == "gups" ]]; then
                 wait
                 sleep 5
@@ -102,4 +99,9 @@ for arch in "${arch[@]}"; do
         fi
     done
     cd ..
+done
+
+echo "Done! List of analysis results:"
+for result in "${results[@]}"; do
+    echo -e "\033[1;35m\t${result}"
 done
