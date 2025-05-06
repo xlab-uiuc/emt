@@ -48,7 +48,7 @@ commands=(
     "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dc.sh <stage>; /shutdown;"
     "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_sssp.sh <stage>; /shutdown;"
     "cd rethinkVM_bench; ./run_scripts/simulation/gups.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench/workloads; ./bin/bench_redis_st <stage>; /shutdown;"
+    "cd rethinkVM_bench/workloads; ./bin/bench_redis_st -- --recording-stage <stage>; /shutdown;"
 )
 
 recording_stage=(
@@ -84,11 +84,11 @@ for arch in "${archs[@]}"; do
             for s_i in "${!recording_stage[@]}"; do
                 stage=${recording_stage[$s_i]}
                 stage_str=${recording_stage_str[$s_i]}
-                if [[ $benchmark == "redis" ]]; then
-                    command=${commands[$b_i]/<stage>/${recording_stage_str_redis[$s_i]}}
-                else
-                    command=${commands[$b_i]/<stage>/${recording_stage_str[$s_i]}}
-                fi
+                # if [[ $benchmark == "redis" ]]; then
+                #     command=${commands[$b_i]/<stage>/${recording_stage_str_redis[$s_i]}}
+                # else
+                    command=${commands[$b_i]/<stage>/${recording_stage[$s_i]}}
+                # fi
                 arch_stage_dir="${output_dir}/${arch}/${stage_str}"
                 file_prefix="${arch}_${thp}_${benchmark}_${stage_str}"
                 sudo mkdir -p $arch_stage_dir

@@ -291,3 +291,40 @@ Then run benchmark with
 cd emt-linux-fpt-L3L2;
 ./run_bench.sh --arch fpt --flavor L3L2 --thp never --out /data/EMT
 ```
+
+## Data Collection
+
+We provide a script to run six representative benchmarks: `graphbig_bfs`, `graphbig_dfs`, `graphbig_dc`, `graphbig_sssp`, `gups`, and `redis`. To collect data across all configurations (radix/ecpt, THP enabled/disabled, running/loading stage), simply run:
+```
+# Usage: ./collect_data.sh [--dry] [--out <destination>]
+
+./collect_data.sh
+```
+
+You can use `--dry` flag to see the commands without executing them; you can also use `--out` to specify a custom directory to store the data.
+
+> Note that the generated raw data could be extremely large. Please reserve sufficient disk space for them.
+
+By default, benchmarks are executed sequentially. If your system has sufficient CPU, memory, and storage resources, you may modify the script to introduce parallelism for faster data collection.
+
+## Data Analysis
+
+We provide a script to analyze the collected benchmark data.
+
+```
+# Usage: ./analyze_data.sh [--dry] [--thp never|always|all] [--input <source directory>] [--ipc_stats <pos>] [--inst_stats <pos>] [--graph <pos>]
+
+./analyze_data.sh
+```
+
+Optional flags:
+- `--dry` Print the commands that would be executed without actually running them.
+- `--thp` Specify which THP configuration(s) to analyze. Use `all` to process both.
+- `--input` Set the root directory containing raw benchmark results (default:`/data/EMT`).
+- `--ipc_stats` Customize the output directory for IPC statistics (default: `./ipc_stats`).
+- `--inst_stats` Customize the output directory for instruction statistics (default: `./inst_stats`).
+- `--graph` Set the destination folder for all generated plots (default: `./graph`).
+
+
+
+This script will generate some statistics of these benchmarks, in `csv` format, and generate visualizations for them. Finally, you can see some graphs with formatting consistent with the paper, enabling direct comparison between your generated results and those presented in the evaluation.
