@@ -16,10 +16,16 @@ Note that we only apply for available and functional badge.
 - *VM-Bench* benchmark repo for all benchmarks
 
 
-## Dependency Installation
+## Machine Requirements
+
+- Simulation experiment: We reserved machines on cloudlab. You can join the project `AE25` and find experiment `OSDI2025-EMT-AE`. 
+<!-- - Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it. -->
+
+## Simulation Setup and Test for Functionality
+
+### Dependency Installation
 
 The following instructions are tested on Ubuntu 22.04 environment.
-We have reserved machine on cloudlab. You can join the project `AE25` and find experiment `EMT-AE`.
 
 ```bash
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
@@ -34,7 +40,7 @@ newgrp docker
 to make docker group active.
 
 
-## Radix Setup
+### Radix Setup
 
 #### QEMU Setup
 <!-- Clone repo  -->
@@ -120,7 +126,7 @@ docker build -t dynamorio:latest .
 cd ..
 ``` -->
 
-#### Time to run
+#### Time to run [Est. time 2 hours]
 
 Run a graphbig benchmark with EMT-Linux and generate analysis file.
 The output include instruction and memory trace which can be up to 150GB.
@@ -148,7 +154,7 @@ You can find a file with suffix `kern_inst.folded.high_level.csv` that contains 
 File ended with `bin.dyna_asplos_smalltlb_config_realpwc.log` is simulator result from DynamoRIO; the final simulation result can be found at the file ended with `dyna_asplos_smalltlb_config_realpwc.log.ipc.csv`
 
 
-## ECPT setup
+### ECPT setup
 
 Note that if you just ended running command above, please return back to the root folder (`EMT-OSDI-AE`).
 
@@ -197,7 +203,7 @@ make -j `nproc` LOCALVERSION=-gen-ECPT
 
 <!-- `general_interface_ECPT_config` configures linux to run on ECPT. -->
 
-#### Time to run
+#### Time to run [Est. time 2 hours]
 Again, we need a filesystem to run.
 We can reuse the image from last section.
 
@@ -214,7 +220,7 @@ cd emt-linux-ecpt
 
 You can find similar files in `/data/EMT/ecpt/running`.
 
-## FPT setup
+### FPT setup 
 
 #### QEMU Setup
 <!-- Clone QEMU and configure ECPT -->
@@ -257,7 +263,7 @@ make olddefconfig
 make -j `nproc` LOCALVERSION=-gen-FPT
 ``` -->
 
-#### Time to run
+#### Time to run [Est. time 2 hours]
 
 ```bash
 cd emt-linux-fpt-L4L3L2L1
@@ -338,7 +344,7 @@ Optional flags:
 
 This script will generate statistics of the benchmarks, in `csv` format, and generate visualizations for them. 
 You can find the plots under `./graph` directory.
-- `./graph/kern_inst_unified_never.pdf` corresponds to Figure  a)
+- `./graph/kern_inst_unified_never.pdf` corresponds to Figure 16 a)
 - `./graph/kern_inst_unified_always.pdf` corresponds to Figure 16 a)
 - `./graph/ecpt_pgwalk_never.svg` corresponds to Figure 20 a)
 - `./graph/ecpt_ipc_never.svg` corresponds to Figure 20 b)
