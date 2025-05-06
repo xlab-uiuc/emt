@@ -30,11 +30,11 @@ def post_process(ax, ylabel, sheetX, sheetY, datasheet, datadiv, transpose, name
 	# shape = datasheet.shape
 	# datasheet = datasheet / datadiv[:,None]
 	# datasheet = datasheet.reshape(shape)
-	print(_datasheet)
+	# print(_datasheet)
 	radix_speedup = _datasheet[:, 0] / _datasheet[:, 0]
 	ecpt_speedup = _datasheet[:, 0] / _datasheet[:, 1]
-	print(max(ecpt_speedup))
-	print(min(ecpt_speedup))
+	# print(max(ecpt_speedup))
+	# print(min(ecpt_speedup))
  
 	geo_mean = math.exp(np.mean(np.log(ecpt_speedup)))
 	# print(geo_mean)
@@ -45,7 +45,7 @@ def post_process(ax, ylabel, sheetX, sheetY, datasheet, datadiv, transpose, name
 	_datasheet = np.vstack((np.column_stack((radix_speedup, ecpt_speedup)), np.array([[np.mean(radix_speedup), np.mean(ecpt_speedup)]])))
 	_sheetY.append("Mean")
 
-	print(_datasheet)
+	# print(_datasheet)
 	maxY = np.amax(_datasheet) * heightMargin
 
 	if transpose:
@@ -115,7 +115,7 @@ ecpt_page_walk_latency_4KB = df_unified_ecpt_result['page_walk_latency'].values
 ecpt_ipc_4KB = df_unified_ecpt_result['ipc'].values
 ecpt_E2E_4KB = df_unified_ecpt_result['total_cycles'].values
 datasheet2 = np.column_stack((np.array(radix_page_walk_latency_4KB), np.array(ecpt_page_walk_latency_4KB)))
-print(datasheet2)
+# print(datasheet2)
 datadiv2 = np.ones_like(len(sheetY2))
 transpose2 = False
 name2 = 'Page walk speedup'

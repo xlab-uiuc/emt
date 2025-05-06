@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
+set -e
 
 input_dir="/data/EMT"
 dry_run=false
 
 ipc_stat_py=$(realpath ipc_with_inst.py)
-ipc_stat_folder=$(realpath ipc_stats)
+ipc_stat_folder=$(realpath ./ipc_stats)
 inst_stat_py=$(realpath ./VM-Bench/run_scripts/get_unified_kern_inst_ae.py)
-inst_stat_folder=$(realpath ./VM-Bench/inst_stats)
+inst_stat_folder=$(realpath ./inst_stats)
 ipc_analyze_py=$(realpath ecpt_unified.py)
 inst_analyze_py=$(realpath kern-inst-breakdown-with-khuge-unified.py)
 graph_folder=$(realpath ./graph)

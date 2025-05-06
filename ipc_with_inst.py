@@ -417,15 +417,15 @@ def calc_ipc_speedup(radix_stats, ecpt_stats, stage):
     speedups.columns = ['pgwalk_speedup', 'ipc_speedup', 'e2e_speedup']
     radix_stats = pd.concat([speedups, radix_stats], axis=1)
     
-    with open(f'ipc_stats/ipc_stats_radix_{THP}_{stage}.csv', 'w') as f:
+    with open(f'{STAT_FOLDER}/ipc_stats_radix_{THP}_{stage}.csv', 'w') as f:
         # f.write(f'Radix {stage}\n')
         radix_stats.to_csv(f)
-        print('save to', os.path.realpath(f'ipc_stats/ipc_stats_radix_{THP}_{stage}.csv'))
+        print('save to', os.path.realpath(f'{STAT_FOLDER}/ipc_stats_radix_{THP}_{stage}.csv'))
     
-    with open(f'ipc_stats/ipc_stats_ecpt_{THP}_{stage}.csv', 'w') as f:
+    with open(f'{STAT_FOLDER}/ipc_stats_ecpt_{THP}_{stage}.csv', 'w') as f:
         # f.write(f'ECPT {stage}\n')
         ecpt_stats.to_csv(f)
-        print('save to', os.path.realpath(f'ipc_stats/ipc_stats_ecpt_{THP}_{stage}.csv'))
+        print('save to', os.path.realpath(f'{STAT_FOLDER}/ipc_stats_ecpt_{THP}_{stage}.csv'))
 
     # print('save to ', f'ipc_stats_{stage}.csv')
 
@@ -669,6 +669,9 @@ if __name__ == "__main__":
         STAT_FOLDER = args.output
     if args.thp:
         THP = args.thp
+
+    if not os.path.exists(STAT_FOLDER):
+        os.makedirs(STAT_FOLDER, exist_ok=True)
 
     radix_running, ecpt_running = calc_running_ipc()
     radix_loading_end, ecpt_loading_end = calc_loading_end_ipc()
