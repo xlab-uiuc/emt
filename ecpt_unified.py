@@ -24,7 +24,7 @@ def waitForResponse(x):
         r = "Popen returncode: " + str(x.returncode) 
         raise OSError(r)
     
-def post_process(ax, ylabel, sheetX, sheetY, datasheet, datadiv, transpose, name, yformat, ylabel_offset=0.22):
+def post_process(ax, ylabel, sheetX, sheetY, datasheet, datadiv, transpose, name, yformat, ylabel_offset=0.32):
 	_datasheet = datasheet.copy()
 	_sheetY = sheetY.copy()
 	# shape = datasheet.shape
