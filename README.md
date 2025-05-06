@@ -292,9 +292,19 @@ cd emt-linux-fpt-L3L2;
 ./run_bench.sh --arch fpt --flavor L3L2 --thp never --out /data/EMT
 ```
 
-## Data Collection
+## Procedures to Reproduce Fig 16 and Fig 20 (Appendix)
 
-We provide a script to run six representative benchmarks: `graphbig_bfs`, `graphbig_dfs`, `graphbig_dc`, `graphbig_sssp`, `gups`, and `redis`. To collect data across all configurations (radix/ecpt, THP enabled/disabled, running/loading stage), simply run:
+### Data Collection
+
+Due to the long time to simulate all the benchmarks, 
+we provide a script to run six representative benchmarks: `graphbig_bfs`, `graphbig_dfs`, `graphbig_dc`, `graphbig_sssp`, `gups`, and `redis`. 
+It collects data for two archictures (radix/ECPT) at two THP configurations (4KB/THP) and two application stages (running/loading)
+
+> Note (MUST READ): 
+> 1. The following experiment will take about 3 - 4 days to finish, please run it ahead of time. 
+> 2. Please run with tmux to avoid the script from being killed.
+> 3. Please make sure `/data` is mounted with at least 500GB space.
+One click run:
 ```
 # Usage: ./collect_data.sh [--dry] [--out <destination>]
 
@@ -303,11 +313,10 @@ We provide a script to run six representative benchmarks: `graphbig_bfs`, `graph
 
 You can use `--dry` flag to see the commands without executing them; you can also use `--out` to specify a custom directory to store the data.
 
-> Note that the generated raw data could be extremely large. Please reserve sufficient disk space for them.
+By default, benchmarks are executed sequentially. 
+If your system has sufficient CPU, memory, and storage resources, you may modify the script to introduce parallelism for faster data collection.
 
-By default, benchmarks are executed sequentially. If your system has sufficient CPU, memory, and storage resources, you may modify the script to introduce parallelism for faster data collection.
-
-## Data Analysis
+### Data Analysis
 
 We provide a script to analyze the collected benchmark data.
 
@@ -327,4 +336,11 @@ Optional flags:
 
 
 
-This script will generate some statistics of these benchmarks, in `csv` format, and generate visualizations for them. Finally, you can see some graphs with formatting consistent with the paper, enabling direct comparison between your generated results and those presented in the evaluation.
+This script will generate statistics of the benchmarks, in `csv` format, and generate visualizations for them. 
+You can find the plots under `./graph` directory.
+- `./graph/kern_inst_unified_never.pdf` corresponds to Figure  a)
+- `./graph/kern_inst_unified_always.pdf` corresponds to Figure 16 a)
+- `./graph/ecpt_pgwalk_never.svg` corresponds to Figure 20 a)
+- `./graph/ecpt_ipc_never.svg` corresponds to Figure 20 b)
+- `./graph/ecpt_e2e_never.svg` corresponds to Figure 20 c)
+

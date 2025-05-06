@@ -212,7 +212,7 @@ fig.legend(handles, labels, # create legend, use plt.legend to create global leg
 		prop = { 'size': fontSize - 6 },
 	)
 
-filename = f"ecpt_pgwalk_THP.svg"
+filename = f"ecpt_pgwalk_{THP}.svg"
 if releasePdf:
 	path = folder + '/' + filename
 	fig.savefig(path, bbox_inches="tight")
