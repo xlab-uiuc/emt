@@ -16,26 +16,38 @@ Note that we only apply for available and functional badge.
 - *VM-Bench* benchmark repo for all benchmarks
 
 
-## Dependency Installation
+## Machine Requirements
+
+- Simulation experiment: We reserved machines on cloudlab. You can join the project `AE25` and find experiment `OSDI2025-EMT-AE`. 
+<!-- - Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it. -->
+
+## Simulation Setup and Test for Functionality
+
+### Dependency Installation
 
 The following instructions are tested on Ubuntu 22.04 environment.
-We have reserved machine on cloudlab. You can join the project `AE25` and find experiment `EMT-AE`.
 
 ```bash
 git clone https://github.com/xlab-uiuc/EMT-OSDI-AE.git
 cd EMT-OSDI-AE
-./install_dependency.sh
+./setup/install_dependency.sh
 ```
 
+**PS**: `./setup/install_dependency.sh` installs necessary packages for compilation and docker environment. Please relogin or run.
+```
+newgrp docker
+```
+to make docker group active.
 
-## Radix Setup
+
+### Radix Setup
 
 #### QEMU Setup
 <!-- Clone repo  -->
 
 ```bash
 # Clone QEMU repo and build QEMU with x86-radix softmmu
-./setup_qemu_radix.sh
+./setup/setup_qemu_radix.sh
 ```
 
 <!-- ```bash
@@ -57,7 +69,7 @@ The compiled binary is at `qemu-radix/build/qemu-system-x86_64`.
 
 ```bash
 # Clone Linux repo and build EMT-Linux with x86-radix MMU driver
-./setup_linux_radix.sh
+./setup/setup_linux_radix.sh
 ```
 You can find linux folder at `emt-linux-radix`.
 
@@ -84,12 +96,9 @@ To run linux with QEMU, you need a filesystem image.
 We prepared a image that contains precompiled benchmark suites (from VM-Bench).
 We have already uploaded image to `/proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz`.
 
-Run the following commands to copy and decoompress.
+Run the following commands to copy and decoompress. (Please make sure we are still in the `EMT-OSDI-AE` root folder.)
 
 ```bash
-# get out of Linux repo
-cd ..;
-
 # copy and decompress the image.
 cp /proj/ae25-PG0/EMT-images/image_record_loading.ext4.xz .
 unxz image_record_loading.ext4.xz
@@ -100,7 +109,7 @@ unxz image_record_loading.ext4.xz
 The script will setup `dynamorio` and `VM-Bench` repo.
 They contain simulator and instruction trace analyzer.
 ```bash
-./setup_simulator.sh
+./setup/setup_simulator.sh
 ```
 
 
@@ -117,7 +126,7 @@ docker build -t dynamorio:latest .
 cd ..
 ``` -->
 
-#### Time to run
+#### Time to run [Est. time 2 hours]
 
 Run a graphbig benchmark with EMT-Linux and generate analysis file.
 The output include instruction and memory trace which can be up to 150GB.
@@ -145,7 +154,9 @@ You can find a file with suffix `kern_inst.folded.high_level.csv` that contains 
 File ended with `bin.dyna_asplos_smalltlb_config_realpwc.log` is simulator result from DynamoRIO; the final simulation result can be found at the file ended with `dyna_asplos_smalltlb_config_realpwc.log.ipc.csv`
 
 
-## ECPT setup
+### ECPT setup
+
+Note that if you just ended running command above, please return back to the root folder (`EMT-OSDI-AE`).
 
 #### QEMU Setup
 <!-- Clone QEMU and configure ECPT
@@ -162,7 +173,7 @@ make -j `nproc`
 
 ```bash
 # Clone QEMU repo and build with ECPT softmmu support
-./setup_qemu_ecpt.sh
+./setup/setup_qemu_ecpt.sh
 ```
 The compiled binary is still at `qemu-ecpt/build/qemu-system-x86_64`. 
 The name `qemu-system-x86_64` might be confusing here, 
@@ -175,7 +186,7 @@ so you are actually configure to compile x86_64 but with ECPT as address transla
 The script will setup linux directory at `emt-linux-ecpt`.
 ```bash
 # Clone Linux repo and build EMT-Linux with ECPT MMU driver
-./setup_linux_ecpt.sh
+./setup/setup_linux_ecpt.sh
 ```
 <!-- ```bash
 # get out of QEMU repo  
@@ -192,11 +203,13 @@ make -j `nproc` LOCALVERSION=-gen-ECPT
 
 <!-- `general_interface_ECPT_config` configures linux to run on ECPT. -->
 
-#### Time to run
+#### Time to run [Est. time 2 hours]
 Again, we need a filesystem to run.
 We can reuse the image from last section.
 
 ```bash
+cd emt-linux-ecpt
+
 # dry run to print the command to execute.
 # Double check architecture, thp config, image path, output directory 
 ./run_bench.sh --arch ecpt --thp never --out /data/EMT --dry
@@ -207,7 +220,7 @@ We can reuse the image from last section.
 
 You can find similar files in `/data/EMT/ecpt/running`.
 
-## FPT setup
+### FPT setup 
 
 #### QEMU Setup
 <!-- Clone QEMU and configure ECPT -->
@@ -224,7 +237,7 @@ make -j `nproc`
 
 ```bash
 # Clone QEMU repo and build with FPT softmmu support
-./setup_qemu_fpt.sh
+./setup/setup_qemu_fpt.sh
 ```
 Output folder `qemu-fpt`.
 
@@ -232,7 +245,7 @@ Output folder `qemu-fpt`.
 
 ```bash
 # Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
-./setup_linux_fpt_L4L3L2L1.sh
+./setup/setup_linux_fpt_L4L3L2L1.sh
 ```
 Output folder `emt-linux-fpt-L4L3L2L1`.
 
@@ -250,7 +263,7 @@ make olddefconfig
 make -j `nproc` LOCALVERSION=-gen-FPT
 ``` -->
 
-#### Time to run
+#### Time to run [Est. time 2 hours]
 
 ```bash
 cd emt-linux-fpt-L4L3L2L1
@@ -266,7 +279,7 @@ By default FPT runs with L4L3 and L2L1 flatenned. If you wish to try L3L2 foldin
 
 ```bash
 # Clone Linux repo and build EMT-Linux with FPT (L4L3 L2L1) MMU driver
-./setup_linux_fpt_L3L2.sh
+./setup/setup_linux_fpt_L3L2.sh
 ```
 Output folder `emt-linux-fpt-L3L2`.
 
@@ -284,3 +297,56 @@ Then run benchmark with
 cd emt-linux-fpt-L3L2;
 ./run_bench.sh --arch fpt --flavor L3L2 --thp never --out /data/EMT
 ```
+
+## Procedures to Reproduce Fig 16 and Fig 20 (Appendix)
+
+### Data Collection
+
+Due to the long time to simulate all the benchmarks, 
+we provide a script to run six representative benchmarks: `graphbig_bfs`, `graphbig_dfs`, `graphbig_dc`, `graphbig_sssp`, `gups`, and `redis`. 
+It collects data for two archictures (radix/ECPT) at two THP configurations (4KB/THP) and two application stages (running/loading)
+
+> Note (MUST READ): 
+> 1. The following experiment will take about 3 - 4 days to finish, please run it ahead of time. 
+> 2. Please run with tmux to avoid the script from being killed.
+> 3. Please make sure `/data` is mounted with at least 500GB space.
+One click run:
+```
+# Usage: ./collect_data.sh [--dry] [--out <destination>]
+
+./collect_data.sh
+```
+
+You can use `--dry` flag to see the commands without executing them; you can also use `--out` to specify a custom directory to store the data.
+
+By default, benchmarks are executed sequentially. 
+If your system has sufficient CPU, memory, and storage resources, you may modify the script to introduce parallelism for faster data collection.
+
+### Data Analysis
+
+We provide a script to analyze the collected benchmark data.
+
+```
+# Usage: ./analyze_data.sh [--dry] [--thp never|always|all] [--input <source directory>] [--ipc_stats <pos>] [--inst_stats <pos>] [--graph <pos>]
+
+./analyze_data.sh
+```
+
+Optional flags:
+- `--dry` Print the commands that would be executed without actually running them.
+- `--thp` Specify which THP configuration(s) to analyze. Use `all` to process both.
+- `--input` Set the root directory containing raw benchmark results (default:`/data/EMT`).
+- `--ipc_stats` Customize the output directory for IPC statistics (default: `./ipc_stats`).
+- `--inst_stats` Customize the output directory for instruction statistics (default: `./inst_stats`).
+- `--graph` Set the destination folder for all generated plots (default: `./graph`).
+
+
+
+This script will generate statistics of the benchmarks, in `csv` format, and generate visualizations for them. 
+You can find the plots under `./graph` directory.
+- `./graph/kern_inst_unified_never.pdf` corresponds to Figure 16 a)
+- `./graph/kern_inst_unified_always.pdf` corresponds to Figure 16 a)
+- `./graph/ecpt_pgwalk_never.svg` corresponds to Figure 20 a)
+- `./graph/ecpt_ipc_never.svg` corresponds to Figure 20 b)
+- `./graph/ecpt_e2e_never.svg` corresponds to Figure 20 c)
+
