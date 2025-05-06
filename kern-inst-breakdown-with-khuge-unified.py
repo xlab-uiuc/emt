@@ -169,7 +169,7 @@ if THP == 'never':
 
     # Merge the two layers and set the font and image border
     final = (colorlayer + patternlayer).configure(
-        font = "Times New Roman"
+        font = "serif"
     ).configure_view(
         stroke = "black",
         strokeWidth = 1
