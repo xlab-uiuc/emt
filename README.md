@@ -20,7 +20,7 @@ We develop EMT, a pragmatic framework atop Linux to em- power different hardware
 ## Machine Requirements
 
 - Simulation experiment: We reserved machines on cloudlab. You can join the project `AE25` and find experiment `OSDI2025-EMT-AE`. 
-<!-- - Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it. -->
+- Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it.
 
 ## Simulation Setup and Minimal Working Example
 
@@ -359,4 +359,47 @@ You can find the plots under `./graph` directory.
 - `./graph/ecpt_pgwalk_never.svg` corresponds to Figure 20 a)
 - `./graph/ecpt_ipc_never.svg` corresponds to Figure 20 b)
 - `./graph/ecpt_e2e_never.svg` corresponds to Figure 20 c)
+
+
+## Procedures to Reproduce Fig 14 and Fig 15
+
+### Validation Claims
+We aim to validate the following claims:
+- Compared to vanilla Linux, EMT-Linux with radix MMU driver introduces little (< 5%) overheads.
+
+
+### Data Collection
+
+The following script will run macro benchmarks and real world applications.
+Due to the time it takes to rerun all kernel micro benchmarks, we put that as a optional part of the evulation.
+Let us know if you need further instructions on that.
+
+```bash
+# on CSL machine with vanilla Linux
+
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
+# Create a tmux session
+./run_all.sh
+
+# Ask the author to reboot to EMT-Linux 
+
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
+# Create a tmux session
+./run_all.sh
+```
+### Data Analysis
+
+```bash
+# on whichever kernel
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
+./plot_baremetal.sh
+```
+You can find the plots under `./ae_results/${USER}` directory.
+- `./ae_results/${USER}/radix.pdf` corresponds to Figure 14 b)
+- `./ae_results/${USER}/radix_real_app_throughput.pdf` corresponds to Figure 15 a)
+- `./ae_results/${USER}/radix_real_app_avg_latency.pdf` corresponds to Figure 15 b)
+- `./ae_results/${USER}/radix_real_app_p99_latency.pdf` corresponds to Figure 15 c)
+
+
+
 
