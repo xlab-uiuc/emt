@@ -8,20 +8,21 @@ We develop EMT, a pragmatic framework atop Linux to em- power different hardware
 
 ## Artifact Evaluation Guideline
 
-Note that we only apply for available and functional badge.
+<!-- Note that we only apply for available and functional badge. -->
 ### Repository overview
 - *emt-linux*, Linux kernel implementation including support for x86-radix, ECPT, and FPT
 - *qemu-emt*, QEMU emulation tool to test and evaluate architectures
 - *dynamorio* Memory simulator for performance
 - *VM-Bench* benchmark repo for all benchmarks
-
+- *collect_data.sh* one click script to collect simulation data.
+- *analyze_data.sh* one click script to generate plots. It uses `ecpt_unified.py` `ipc_with_inst.py` and `kern-inst-breakdown-with-khuge-unified.py`.
 
 ## Machine Requirements
 
 - Simulation experiment: We reserved machines on cloudlab. You can join the project `AE25` and find experiment `OSDI2025-EMT-AE`. 
 <!-- - Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it. -->
 
-## Simulation Setup and Test for Functionality
+## Simulation Setup and Minimal Working Example
 
 ### Dependency Installation
 
@@ -299,6 +300,15 @@ cd emt-linux-fpt-L3L2;
 ```
 
 ## Procedures to Reproduce Fig 16 and Fig 20 (Appendix)
+
+### Validation Claims
+
+We aim to validate the following claims:
+- EMT-ECPT will lead to more (> 1.2x) kernel overheads in both 4KB and THP setup.
+- EMT-ECPT will have positive (> 1.0x) page walk latency speedup.
+- EMT-ECPT will have positive (> 1.0x) IPC speedup.
+- EMT-ECPT will positive but limited (> 1.0x but < 1.1x) total cycle reductions.
+
 
 ### Data Collection
 
