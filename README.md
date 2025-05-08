@@ -377,14 +377,14 @@ Let us know if you need further instructions on that.
 ```bash
 # on CSL machine with vanilla Linux
 
-cd /disk/ssd1/OSDI2025AE/VM-Bench/
 # Create a tmux session
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
 ./run_all.sh
 
 # Ask the author to reboot to EMT-Linux 
 
-cd /disk/ssd1/OSDI2025AE/VM-Bench/
 # Create a tmux session
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
 ./run_all.sh
 ```
 ### Data Analysis
