@@ -374,6 +374,12 @@ The following script will run macro benchmarks and real world applications.
 Due to the time it takes to rerun all kernel micro benchmarks, we put that as a optional part of the evulation.
 Let us know if you need further instructions on that.
 
+We give an estimate of how long each benchmarks will take.
+- Macrobenchmarks, 40 mins
+- Redis, 1 hour 20 mins
+- Postgres, 1 hour 30 mins
+- Memcached, 6 hours 30 mins
+
 ```bash
 # on CSL machine with vanilla Linux
 
