@@ -360,3 +360,52 @@ You can find the plots under `./graph` directory.
 - `./graph/ecpt_ipc_never.svg` corresponds to Figure 20 b)
 - `./graph/ecpt_e2e_never.svg` corresponds to Figure 20 c)
 
+
+## Procedures to Reproduce Fig 14 and Fig 15
+
+### Validation Claims
+We aim to validate the following claims:
+- Compared to vanilla Linux, EMT-Linux with radix MMU driver introduces little (< 5%) overheads.
+
+
+### Data Collection
+
+The following script will run macro benchmarks and real world applications.
+Due to the time it takes to rerun all kernel micro benchmarks, we put that as a optional part of the evulation.
+Let us know if you need further instructions on that.
+
+We give an estimate of how long each benchmarks will take.
+- Macrobenchmarks, 40 mins
+- Redis, 1 hour 20 mins
+- Postgres, 1 hour 30 mins
+- Memcached, 6 hours 30 mins
+
+```bash
+# on CSL machine with vanilla Linux
+
+# Create a tmux session
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
+./run_all.sh
+
+# Ask the author to reboot to EMT-Linux 
+
+# Create a tmux session
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
+./run_all.sh
+```
+### Data Analysis
+
+```bash
+# on whichever kernel
+cd /disk/ssd1/OSDI2025AE/VM-Bench/
+./plot_baremetal.sh
+```
+You can find the plots under `./ae_results/${USER}` directory.
+- `./ae_results/${USER}/graphs/radix.pdf` corresponds to Figure 14 b)
+- `./ae_results/${USER}/graphs/radix_real_app_throughput.pdf` corresponds to Figure 15 a)
+- `./ae_results/${USER}/graphs/radix_real_app_avg_latency.pdf` corresponds to Figure 15 b)
+- `./ae_results/${USER}/graphs/radix_real_app_p99_latency.pdf` corresponds to Figure 15 c)
+
+
+
+
