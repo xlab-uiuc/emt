@@ -374,7 +374,8 @@ The following script will run macro benchmarks and real world applications.
 Due to the time it takes to rerun all kernel micro benchmarks, we put that as a optional part of the evulation.
 Let us know if you need further instructions on that.
 
-We give an estimate of how long each benchmarks will take.
+We give an estimate of how long each benchmarks will take .
+- Total time, 10 hours
 - Macrobenchmarks, 40 mins
 - Redis, 1 hour 20 mins
 - Postgres, 1 hour 30 mins
@@ -382,6 +383,9 @@ We give an estimate of how long each benchmarks will take.
 
 ```bash
 # on CSL machine with vanilla Linux
+
+# Double check if you are vanilla Linux with uname -r
+# If not let, ask the author to reboot the machine
 
 # Create a tmux session
 cd /disk/ssd1/OSDI2025AE/VM-Bench/
