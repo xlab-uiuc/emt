@@ -454,8 +454,8 @@ def calc_running_ipc():
         # "graphbig_tc",
         # "graphbig_pagerank",
         # "sysbench",
-        "gups",
-        "redis",
+        # "gups",
+        # "redis",
         # "memcached",
         # "postgres",
     ]
@@ -507,8 +507,8 @@ def calc_loading_end_ipc():
         # "graphbig_tc",
         # "graphbig_pagerank",
         # "sysbench",
-        "gups",
-        "redis",
+        # "gups",
+        # "redis",
         # "memcached",
         # "postgres",
     ]

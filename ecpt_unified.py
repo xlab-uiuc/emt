@@ -105,7 +105,7 @@ if not os.path.exists(OUTPUT_FOLDER):
 
 ylabel2 = "Page Walk speedup"
 sheetX2 = archs
-sheetY2 = ["BFS", "GUPS", "Redis"]
+sheetY2 = ["BFS"]
 df_unified_radix_result = pd.read_csv(os.path.join(IPC_STATS_FOLDER, f'ipc_unified_{THP}_radix_result.csv'))
 df_unified_ecpt_result = pd.read_csv(os.path.join(IPC_STATS_FOLDER, f'ipc_unified_{THP}_ecpt_result.csv'))
 radix_page_walk_latency_4KB = df_unified_radix_result['page_walk_latency'].values
