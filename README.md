@@ -20,7 +20,7 @@ We develop EMT, a pragmatic framework atop Linux to em- power different hardware
 ## Machine Requirements
 
 - Simulation experiment: We reserved machines on cloudlab. You can join the project `AE25` and find experiment `OSDI2025-EMT-AE`. 
-<!-- - Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it. -->
+- Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it.
 
 ## Simulation Setup and Minimal Working Example
 
