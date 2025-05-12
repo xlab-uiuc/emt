@@ -32,9 +32,9 @@ benchmarks=(
     # "gups_8G"
 
     "graphbig_bfs" 
-    "graphbig_dfs" 
-    "graphbig_dc" 
-    "graphbig_sssp"
+    # "graphbig_dfs" 
+    # "graphbig_dc" 
+    # "graphbig_sssp"
     "gups"
     "redis"
 )
@@ -44,9 +44,9 @@ commands=(
     # "cd rethinkVM_bench; ./run_scripts/simulation/gups_8G.sh <stage>; /shutdown;"
 
     "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_bfs.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dfs.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dc.sh <stage>; /shutdown;"
-    "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_sssp.sh <stage>; /shutdown;"
+    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dfs.sh <stage>; /shutdown;"
+    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_dc.sh <stage>; /shutdown;"
+    # "cd rethinkVM_bench; ./run_scripts/simulation/graphbig_sssp.sh <stage>; /shutdown;"
     "cd rethinkVM_bench; ./run_scripts/simulation/gups.sh <stage>; /shutdown;"
     "cd rethinkVM_bench/workloads; ./bin/bench_redis_st -- --recording-stage <stage>; /shutdown;"
 )

@@ -313,7 +313,7 @@ We aim to validate the following claims:
 ### Data Collection
 
 Due to the long time to simulate all the benchmarks, 
-we provide a script to run six representative benchmarks: `graphbig_bfs`, `graphbig_dfs`, `graphbig_dc`, `graphbig_sssp`, `gups`, and `redis`. 
+we provide a script to run three representative benchmarks: `graphbig_bfs`, `gups`, and `redis`. 
 It collects data for two archictures (radix/ECPT) at two THP configurations (4KB/THP) and two application stages (running/loading)
 
 > Note (MUST READ): 

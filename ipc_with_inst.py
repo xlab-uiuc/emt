@@ -447,9 +447,9 @@ def calc_running_ipc():
         
 
         "graphbig_bfs",
-        "graphbig_dfs",
-        "graphbig_dc",
-        "graphbig_sssp",
+        # "graphbig_dfs",
+        # "graphbig_dc",
+        # "graphbig_sssp",
         # "graphbig_cc",
         # "graphbig_tc",
         # "graphbig_pagerank",
@@ -500,9 +500,9 @@ def calc_loading_end_ipc():
         # 'gups_8G',
 
         "graphbig_bfs",
-        "graphbig_dfs",
-        "graphbig_dc",
-        "graphbig_sssp",
+        # "graphbig_dfs",
+        # "graphbig_dc",
+        # "graphbig_sssp",
         # "graphbig_cc",
         # "graphbig_tc",
         # "graphbig_pagerank",
