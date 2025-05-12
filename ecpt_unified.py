@@ -105,7 +105,7 @@ if not os.path.exists(OUTPUT_FOLDER):
 
 ylabel2 = "Page Walk speedup"
 sheetX2 = archs
-sheetY2 = ["BFS", "DFS", "DC", "SSSP", "GUPS", "Redis"]
+sheetY2 = ["BFS", "GUPS", "Redis"]
 df_unified_radix_result = pd.read_csv(os.path.join(IPC_STATS_FOLDER, f'ipc_unified_{THP}_radix_result.csv'))
 df_unified_ecpt_result = pd.read_csv(os.path.join(IPC_STATS_FOLDER, f'ipc_unified_{THP}_ecpt_result.csv'))
 radix_page_walk_latency_4KB = df_unified_radix_result['page_walk_latency'].values
@@ -288,15 +288,15 @@ post_process(ax3, ylabel3, sheetX3, sheetY3, datasheet3, datadiv3, transpose3, n
 handles, labels = ax3.get_legend_handles_labels()
 colCount = math.ceil(len(sheetX1) / legendRows)
 
-# fig3.legend(handles, labels, # create legend, use plt.legend to create global legend
-# 		bbox_to_anchor = ((1 - legendWidth) / 2, legendOffset, legendWidth, .102), # (x0, y0, width, height)
-# 		loc = 'lower left',
-# 		ncol = colCount,
-# 		mode = 'expand',
-# 		borderaxespad = 0.,
-# 		frameon = False,
-# 		prop = { 'size': fontSize - 6 },
-# 	)
+fig3.legend(handles, labels, # create legend, use plt.legend to create global legend
+		bbox_to_anchor = ((1 - legendWidth) / 2, legendOffset, legendWidth, .102), # (x0, y0, width, height)
+		loc = 'lower left',
+		ncol = colCount,
+		mode = 'expand',
+		borderaxespad = 0.,
+		frameon = False,
+		prop = { 'size': fontSize - 6 },
+	)
 
 filename = f"ecpt_e2e_{THP}.svg"
 if releasePdf:
