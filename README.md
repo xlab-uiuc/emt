@@ -359,7 +359,7 @@ Optional flags:
 This script will generate statistics of the benchmarks, in `csv` format, and generate visualizations for them. 
 You can find the plots under `./graph` directory.
 - `./graph/kern_inst_unified_never.pdf` corresponds to Figure 16 a)
-- `./graph/kern_inst_unified_always.pdf` corresponds to Figure 16 a)
+- `./graph/kern_inst_unified_always.pdf` corresponds to Figure 16 b)
 - `./graph/ecpt_pgwalk_never.svg` corresponds to Figure 20 a)
 - `./graph/ecpt_ipc_never.svg` corresponds to Figure 20 b)
 - `./graph/ecpt_e2e_never.svg` corresponds to Figure 20 c)
@@ -389,7 +389,7 @@ We give an estimate of how long each benchmarks will take .
 # on CSL machine with vanilla Linux
 
 # Double check if you are vanilla Linux with uname -r
-# If not let, ask the author to reboot the machine
+# If not, ask the author to reboot the machine
 
 # Create a tmux session
 cd /disk/ssd1/OSDI2025AE/VM-Bench/
