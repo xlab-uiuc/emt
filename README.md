@@ -401,10 +401,10 @@ cd /disk/ssd1/OSDI2025AE/VM-Bench/
 ./plot_baremetal.sh
 ```
 You can find the plots under `./ae_results/${USER}` directory.
-- `./ae_results/${USER}/radix.pdf` corresponds to Figure 14 b)
-- `./ae_results/${USER}/radix_real_app_throughput.pdf` corresponds to Figure 15 a)
-- `./ae_results/${USER}/radix_real_app_avg_latency.pdf` corresponds to Figure 15 b)
-- `./ae_results/${USER}/radix_real_app_p99_latency.pdf` corresponds to Figure 15 c)
+- `./ae_results/${USER}/graphs/radix.pdf` corresponds to Figure 14 b)
+- `./ae_results/${USER}/graphs/radix_real_app_throughput.pdf` corresponds to Figure 15 a)
+- `./ae_results/${USER}/graphs/radix_real_app_avg_latency.pdf` corresponds to Figure 15 b)
+- `./ae_results/${USER}/graphs/radix_real_app_p99_latency.pdf` corresponds to Figure 15 c)
 
 
 
