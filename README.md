@@ -21,8 +21,10 @@ We develop EMT, a pragmatic framework atop Linux to em- power different hardware
 
 - Simulation experiment: We reserved machines on cloudlab. You can join the project `AE25` and find experiment `OSDI2025-EMT-AE`. 
     - Section [Simulation Setup and Minimal Working Example](#Simulation-Setup-and-Minimal-Working-Example) and [Procedures to Reproduce Fig 16 and Fig 20 (Appendix)](#Procedures-to-Reproduce-Fig-16-and-Fig-20-Appendix) need cloudlab machines.
+    - To avoid resource contentions, reviewer A, B, C can use node 0, 1, 2 correspondingly. Feel free to coordinate your self as well.
 - Baremetal experiment: To avoid complexity of handling kernel installation on baremetal machines, we provide a machine with kernel installed and setup environments for you. Please refer to the hotcrp page for information on how to access it.
     - Section [Procedures to Reproduce Fig 14 and Fig 15](#Procedures-to-Reproduce-Fig-14-and-Fig-15) will run with the provided machine.
+    - To avoid resource contentions, reviewer A, B, C will use user{1|2|3}.ovpn and account AEuser1, AEuser2, AEuser3 respectively.
 
 ## Simulation Setup and Minimal Working Example
 
