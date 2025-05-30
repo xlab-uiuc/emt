@@ -305,6 +305,9 @@ cd emt-linux-fpt-L3L2;
 
 ## Procedures to Reproduce Fig 16 and Fig 20 (Appendix)
 
+### Prequisite
+Simulation Setup and Minimal Working Example
+
 ### Validation Claims
 
 We aim to validate the following claims:
